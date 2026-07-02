@@ -1,2 +1,8 @@
-*/.env
-*/node_modules
+# Ignore node_modules
+node_modules/
+
+# Ignore backend env file
+backend/.env
+
+# Ignore frontend env file
+frontend/.env
