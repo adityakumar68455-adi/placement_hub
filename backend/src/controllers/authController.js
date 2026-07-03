@@ -12,6 +12,22 @@ exports.register = async (req, res) => {
             return res.status(400).json({message: "All details must be present", success:false})
         }
 
+        let allowedRoles = ["student", "company"]
+
+        if (role === "admin"){
+            return res.status(403).json({
+            success: false,
+            message: "Admin cannot be registered publicly"
+        });
+        }
+
+        if (!allowedRoles.includes(role)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid role"
+            });
+        }
+
         email = email.trim().toLowerCase();
 
         if (!EMAIL_REGEX.test(email)) {
