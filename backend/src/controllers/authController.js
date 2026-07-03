@@ -20,6 +20,7 @@ exports.register = async (req, res) => {
             message: 'Please enter a valid email address.' 
             });
         }
+        
 
         const existingUser = await User.findOne({email})
         if (existingUser){
@@ -60,7 +61,7 @@ exports.login = async (req,res)=> {
         let {email, password} = req.body;
 
         if (!email || !password){
-            res.status(400).json({message: "Both details mandatory"})
+            return res.status(400).json({message: "Both details mandatory"})
         }
 
         email = email.trim().toLowerCase();
