@@ -43,7 +43,7 @@ exports.register = async (req, res) => {
             return res.status(400).json({message: "User is already present in the database", success:false})
         }
 
-        if (password.length < 8){
+        if (password.length < 8){ 
             return res.status(400).json({success:false ,message: "Min password length should be 8"})
         }
 
