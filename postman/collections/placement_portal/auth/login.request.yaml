@@ -1,0 +1,14 @@
+$kind: http-request
+name: login
+url: http://localhost:5000/api/auth/login
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"email\": \"ppa@super.com\",\r
+
+    \    \"password\": \"admin123\"\r
+
+    }"
+order: 1945016794567634

@@ -18,6 +18,7 @@ const companySchema = new mongoose.Schema({
         enum: ["pending", "verified", "rejected"],
         default: "pending"
     },
+ 
     verifiedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User" // References the admin user who verified them

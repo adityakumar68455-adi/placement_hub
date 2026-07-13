@@ -1,0 +1,7 @@
+$kind: http-request
+name: getCompanies
+url: http://localhost:5000/api/admin/companies
+method: GET
+headers:
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDdiOWZiNWYzODI3YWM3YzkyZjEyMSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4MzQyODgxNSwiZXhwIjoxNzg0MDMzNjE1fQ.fhJm6_e941LxoltuqYgeIVfi0xkY7Odzybo6XB5KQe8
+order: 4483812238900098

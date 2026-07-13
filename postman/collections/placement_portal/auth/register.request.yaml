@@ -1,0 +1,16 @@
+$kind: http-request
+name: register
+url: "{{ppa}}auth/register"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"email\": \"test_company2@gmail.com\",\r
+
+    \    \"password\": \"12345678\",\r
+
+    \    \"role\": \"admin\"\r
+
+    }"
+order: 1783428204176
