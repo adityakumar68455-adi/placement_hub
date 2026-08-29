@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs")
 const User = require("../models/UserSchema.js")
-
+    
 const seedAdmin = async () => {
     try {
         const adminExists = await User.findOne({ role: "admin" });

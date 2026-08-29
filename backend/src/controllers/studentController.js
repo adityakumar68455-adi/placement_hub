@@ -17,7 +17,7 @@ exports.createStudentProfile = async (req, res) => {
         const { fullName, phone, alternativePhone, cgpa, branch, activeBacklogs, skills, experience, resumeUrl } = req.body;
 
         // 3. Validate mandatory fields
-        if (!fullName || !phone || !cgpa || !branch) {
+        if (!fullName || !phone || cgpa === undefined || !branch) {
             return res.status(400).json({ 
                 success: false, 
                 message: "Please provide your full name, phone, CGPA, and branch." 
@@ -44,3 +44,4 @@ exports.createStudentProfile = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 };
+

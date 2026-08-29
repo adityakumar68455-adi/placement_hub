@@ -52,7 +52,7 @@ exports.register = async (req, res) => {
         // hashed the password
         const hashedPassword = await bcrypt.hash(password, 12)
 
-        // user created in the databse 
+        // user created in the database 
         const user = await User.create({
             email,
             password: hashedPassword,
@@ -73,7 +73,7 @@ exports.register = async (req, res) => {
         res.status(500).json({message: error.message})
     }
 }
-
+// ============login===========
 exports.login = async (req, res) => {
     try {
         let { email, password } = req.body;
@@ -97,7 +97,7 @@ exports.login = async (req, res) => {
         }
         
 
-        // 🔍 NEW LOGIC: Dynamic Profile Checklist Gate
+        //  NEW LOGIC: Dynamic Profile Checklist Gate
         let hasProfile = false;
         let verificationStatus = null; // Only relevant for companies
 

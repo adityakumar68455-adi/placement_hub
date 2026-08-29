@@ -97,7 +97,7 @@ exports.getAdminDashboardAnalytics = async (req, res) => {
         });
 
     } catch (error) {
-        console.error("Advanced Admin Metrics Pipeline Error:", error.message);
+        console.error("Advanced Admin Metrics Pipeline Error:", error.message); 
         res.status(500).json({
             success: false,
             message: "Analytical calculation operations encountered an internal failure.",

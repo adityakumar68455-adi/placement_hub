@@ -7,7 +7,7 @@ const connectDB = async () => {
         console.log("You are connected to the database");
 
         // create admin if there is not any
-        seedAdmin();
+        await seedAdmin();
     } catch (error) {
         console.log("DB Error:", error.message);
         process.exit(1);
@@ -15,5 +15,3 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
-
-

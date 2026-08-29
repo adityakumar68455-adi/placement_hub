@@ -40,10 +40,10 @@ exports.getCompanyJobs = async (req, res) => {
       success: true,
       count: jobs.length,
       data: jobs
-    });
+    })
 
   } catch (error) {
-    res.status(500).json({
+    res.status(500).json({   
       success: false,
       message: error.message
     });

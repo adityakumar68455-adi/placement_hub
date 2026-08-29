@@ -20,7 +20,7 @@ exports.protect = async (req, res, next) => {
         message: "Not authorized, token missing",
       });
     }
-
+    
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = await User.findById(decoded.id).select("-password");
 

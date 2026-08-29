@@ -10,10 +10,10 @@ const applicationSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Student",
         required: true
-    },
+    }, 
     status: {
         type: String,
-        enum: ["applied", "shortlisted", "interviewing", "selected", "rejected"],
+        enum: ["applied", "shortlisted", "interview", "selected", "rejected"],
         default: "applied"
     },
     feedback: { type: String, default: "" }, // Intermediary feedback from company recruiters

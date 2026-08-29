@@ -1,0 +1,22 @@
+$kind: http-request
+name: createcompanyprofile
+url: http://localhost:5000/api/company/createProfile
+method: POST
+headers:
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTRjZTNlMjRiMTA3NTY5MDk5N2U2OSIsInJvbGUiOiJjb21wYW55IiwiaGFzUHJvZmlsZSI6ZmFsc2UsImlhdCI6MTc4NDE4ODQxNCwiZXhwIjoxNzg0NzkzMjE0fQ.ld1YndwQtd-Iy6Wcds0fe0QelvOoul4gkVXm34ivMWA
+body:
+  type: json
+  content: "{\r
+
+    \   \r
+
+    \    \"companyName\" : \"hellohi\" , \r
+
+    \    \"industry\" : \"Tech cs0\" ,\r
+
+    \    \"location\" : \"Nodia\" ,\r
+
+    \    \"contactEmail\" : \"coampnycont@gmail,\"\r
+
+    }"
+order: 1784188165713
