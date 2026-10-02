@@ -1,25 +1,63 @@
-import React from 'react'
-import Student_Dashboard from './student/Student_Dashboard/Student_Dashboard'
-import CompanyDashboard from './company/Company_Dashboard/CompanyDashboard'
-import LoginForm from './features/auth/components/LoginForm'
-import RegisterForm from './features/auth/components/RegisterForm'
+import React from "react";
 
-import PublicLayout from './features/layout/PublicLayout'
-import{Route , Routes} from 'react-router-dom'
+// React Router
+import { Route, Routes } from "react-router-dom";
+
+// All layouts
+import PublicLayout from "./layouts/PublicLayout.jsx";
+import AdminLayout from "./layouts/AdminLayout.jsx";
+import CompanyLayout from "./layouts/CompanyLayout.jsx";
+import StudentLayout from "./layouts/StudentLayout.jsx";
+
+// Admin Side Components
+import Dashboard from "./components/admin/Dashboard.jsx";
+
+// Student Side Components
+import StudentDashboard from "./components/student/StudentDashboard.jsx";
+import StudentForm from "./components/student/StudentForm.jsx";
+
+// Company Side Components
+import CompanyDashboard from "./components/company/CompanyDashboard.jsx";
+import CompanyForm from "./components/company/CompanyForm.jsx"
+
+
+// Public Components
+import Home from "./components/public/Home.jsx";
+import Login from "./components/public/Login.jsx";
+import Register from "./components/public/Register.jsx";
 
 
 export default function App() {
   return (
-    <>
-    <PublicLayout/>
-    {/* <RegisterLoginPage/> */}
-<Routes>
-  
-  <Route path= '/studentDashboard'  element ={<Student_Dashboard/>}/> 
-  <Route path='/companyDashboard' element={<CompanyDashboard/> }/>
-  <Route path= '/Register'  element ={<RegisterForm/>}/> 
-  <Route path= '/Login'  element ={<LoginForm/>}/> 
-</Routes>
-</>
-  )
+    <Routes>
+
+      {/* Admin Side Routes */}
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<Dashboard />} />
+      </Route>
+
+
+      {/* Company Side Routes */}
+      <Route path="/company" element={<CompanyLayout />}>
+        <Route index element ={<CompanyForm/>}/>
+        <Route index element={<CompanyDashboard />} />
+      </Route>
+
+
+      {/* Student Side Routes */}
+      <Route path="/student" element={<StudentLayout />}>
+        <Route index element={<StudentForm/>}/>
+        <Route index element={<StudentDashboard />} />
+      </Route>
+
+
+      {/* Public Side Routes */}
+      <Route path="/" element={<PublicLayout />}>
+        <Route index element={<Home />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+      </Route>
+
+    </Routes>
+  );
 }

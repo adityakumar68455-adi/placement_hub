@@ -6,7 +6,7 @@ const {
     getCompanyJobs,
     getCompanyApplicants,
     updateApplicationStatus
-} = require("../controllers/companyDashboardController");
+} = require("../controllers/companydashboardcontroller");
 
 const { protect, authorizeRoles } = require("../middlewares/authMiddleware");
 
