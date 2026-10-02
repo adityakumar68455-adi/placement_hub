@@ -13,7 +13,7 @@ const applicationSchema = new mongoose.Schema({
     }, 
     status: {
         type: String,
-        enum: ["applied", "shortlisted", "interview", "selected", "rejected"],
+        enum: ["applied", "shortlisted", "interviews", "selected", "rejected"],
         default: "applied"
     },
     feedback: { type: String, default: "" }, // Intermediary feedback from company recruiters

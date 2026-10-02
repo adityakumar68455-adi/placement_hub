@@ -5,14 +5,16 @@ exports.createJob = async (req, res) => {
   try {
     const companyId = req.companyProfile._id; 
 
-    const { title, description, location, ctc } = req.body;
+    const { title, description, location, ctc , jobType , deadline  } = req.body;
 
     const job = await Job.create({
       title,
       description,
       location,
       ctc,
-      company: companyId
+      company: companyId ,
+      jobType ,
+      deadline
     });
 
     res.status(201).json({

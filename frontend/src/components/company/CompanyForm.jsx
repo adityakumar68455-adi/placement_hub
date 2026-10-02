@@ -1,16 +1,19 @@
 import { useState } from "react"
 import React from 'react'
 import api from "../../api/axios";
+import { useNavigate } from "react-router-dom";
+
 
 function CompanyFOrm() {
+  const navigate = useNavigate();
   const [form,setForm] = useState({
-         Company_Name : '',
-               industry : '',
-                description : '',
-                location : '',
-                website: '',
-                contactEmail:''
-});
+      companyName : '',
+            industry : '',
+            description : '',
+            location : '',
+            website: '',
+            contactEmail:''
+          });
 
  const handleChange=(e)=>{
     const {name , value} = e.target;
@@ -25,15 +28,31 @@ const handleSubmit = async(e) =>{
                 try {
                     const payLoad = form;
                     const token = localStorage.getItem('token');
-                    const response = await api.post('/company/profile',payLoad,{
+                    const response = await api.post('/company/createProfile',payLoad,{
                         headers: {
-                            Authorization : `Bearer ${token}`
+                            'Authorization' : `Bearer ${token}`
                         }
+                        
                 })
-                    console.log("form submitted successfully",response.data)
+                    console.log("form submitted successfully",response.data);
+                     if(response.success || response){
+                      alert('Profile created successfuly')
+                     } else {
+                      alert("some thing wrong")
+                     }
+                     if(response.data.success===true && response.data.verificationStatus === 'pending'){
+                      navigate('/wait')
+                     } 
+                     else{
+                      alert('Comapny form failed')
+                     }
+
+
                 } catch (error) {
-                     console.error("failed",error.response?.data?.message || error.response?.data || error.message)
-                }
+                  alert(error.response?.data?.message || error.response?.data || error.message)
+                     console.error(" company formed failed",error.response?.data?.message || error.response?.data || error.message)
+                     };
+                    
     }
  
 return (
@@ -56,18 +75,18 @@ return (
       {/* Company Name */}
       <div className="mb-4">
         <label
-          htmlFor="Company_Name"
+          htmlFor="companyName"
           className="block mb-1 font-medium text-gray-700"
         >
           Company Name
         </label>
 
         <input
-          id="Company_Name"
+          id="companyName"
           type="text"
-          name="Company_Name"
+          name="companyName"
           placeholder="Enter company name"
-          value={form.Company_Name}
+          value={form.companyName}
           onChange={handleChange}
           required
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"

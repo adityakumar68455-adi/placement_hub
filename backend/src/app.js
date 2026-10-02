@@ -37,7 +37,7 @@ app.use("/api/company", companyRoutes)
 app.use("/api/student", studentRoutes)
 app.use("/api/jobs", jobRoutes);
 app.use("/api/companyDashboard", getCompanyDashboard);
-app.use("/api/studentDashboard", getStudentDashboard)
+app.use("/api/studentDashboard", getStudentDashboard);
 
 
 

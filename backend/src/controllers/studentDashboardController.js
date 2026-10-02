@@ -1,5 +1,6 @@
 const student = require("../models/StudentSchema.js")
 const application = require("../models/ApplicationSchema.js")
+const jobs = require("../models/JobSchema.js")
 
 exports.getStudentDashboard = async (req,res) => {
     try {
@@ -8,7 +9,6 @@ exports.getStudentDashboard = async (req,res) => {
         const findStudent = await student.findOne({user : userId}) 
         if(!findStudent){
             return res.status(404).json({
-
                 success: false,
                 status: 404,
                 message: "student profile Not Found"
@@ -20,7 +20,7 @@ exports.getStudentDashboard = async (req,res) => {
         })
         const interviews = await application.countDocuments({
             student: userId,
-            status: "interview"
+            status: "interviews"
          })
 
          const selected = await application.countDocuments({
@@ -40,7 +40,7 @@ exports.getStudentDashboard = async (req,res) => {
     
         res.json({
             totalApplications,
-            interview,
+            interviews,
             selected,
             rejected
             
@@ -51,44 +51,99 @@ exports.getStudentDashboard = async (req,res) => {
         })
     }
 }
+exports.getAllJobs= async (req , res) =>{
+    try {
+        const job = await jobs.find({});
+        res.status(200).json({
+            success: true ,
+            data : job
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false ,
+            message : error.message
+        })
+    }
+}
 // ------------Apply job controller----------------
 
-exports.applyJob = async(req,res) => {
-try {
-    const userId = req.user.id;
-    const {jobId} = req.body;
-    
-    const alreadyApplied = await application.findOne({
-        student: userId,
-        job:jobId
-    })
-    if(alreadyApplied){
-        return res.status(400).json({
-            success:false,
-            message:"you already applied for this job"
-        })
+exports.applyJob = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { jobId } = req.body;
+
+        // 1. CRITICAL FIX: Find the student document linked to the logged-in user
+        const currentStudent = await student.findOne({ user: userId });
+        if (!currentStudent) {
+            return res.status(404).json({
+                success: false,
+                message: "Student profile not found for this user account."
+            });
         }
-    
-    const newApplication = await application.create({
-        student: userId,
-        job:jobId
-    })
 
+        // 2. Check duplicate applications using the actual Student ID
+        const alreadyApplied = await application.findOne({
+            student: currentStudent._id,
+            job: jobId
+        });
 
-    res.status(201).json({
-        success:true,
-        message:"applied successfully",
-        data:newApplication
+        if (alreadyApplied) {
+            return res.status(400).json({
+                success: false,
+                message: "You already applied for this job"
+            });
+        }
 
-    })
+        // 3. Create the application using the actual Student ID
+        const newApplication = await application.create({
+            student: currentStudent._id,
+            job: jobId
+        });
 
+        res.status(201).json({
+            success: true,
+            message: "applied successfully",
+            data: newApplication
+        });
 
-} catch (error) {
-    res.status(500).json({
-        success: false,
-        message: error.message
-    })
-    
-  }
-}
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
 
+exports.getAllApplications = async (req, res) => {
+    try {
+        const userId = req.user.id;
+
+        // 1. Find the student profile first
+        const currentStudent = await student.findOne({ user: userId });
+        if (!currentStudent) {
+            return res.status(404).json({
+                success: false,
+                message: "Student profile not found."
+            });
+        }
+
+        // 2. Fetch records using the Student profile ID
+        const applications = await application.find({ student: currentStudent._id })
+            .populate({
+                path: "student",
+                select: "fullName phone branch cgpa"
+            })
+            .populate({
+                path: "job",
+                select: "title status"
+            });
+
+        res.status(200).json({
+            success: true,
+            count: applications.length,
+            data: applications
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};

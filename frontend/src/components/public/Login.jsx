@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import api from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
+import {  toast } from 'react-toastify';
 
 function Login() {
   const [form ,setForm] = useState({
@@ -22,23 +23,43 @@ function Login() {
     try {
       const payLoad = {email , password};
       const response = await api.post('/auth/login', payLoad);
+      if(response.data.success == true){
+        toast('Login successful')
+      }
+      else{
+        toast('Failed')
+      }
       console.log("login Successfully ", response.data ) ;
       localStorage.setItem('token',response.data.token);
       localStorage.setItem('role',response.data.user.role);
       const userRole = localStorage.getItem('role')
-      if(userRole === 'student'){
+
+      if(userRole === 'student'&& response.data.user.hasProfile === false ){
+        navigate('/student/form')
+      }
+      else if(userRole === 'student' && response.data.user.hasProfile === true){
         navigate('/student')
       }
-      else if(userRole === 'company'){
+      else if(userRole === 'company' && response.data.user.hasProfile === false){
+        navigate('/company/form')
+      }
+      else if(userRole === 'company' && response.data.user.hasProfile === true && response.data.user.verificationStatus === "pending"){
+        navigate('/wait')
+      }
+      else if(userRole === 'company' && response.data.user.hasProfile === true && response.data.user.verificationStatus === "verified"){
         navigate('/company')
       }
-      else if(userRole === 'admin'){
+      else if(userRole === 'company' && response.data.user.hasProfile === true && response.data.user.verificationStatus === "rejected"){
+        navigate('/wait')
+      }
+      else if(userRole === 'admin'&& response.data.user.hasProfile === false){
         navigate('/admin')
       }
       
 
     } catch (error) {
-      console.error("login failed" ,  error.response?.data?.message || error.response?.data || error.message)
+      toast.error( 'login failed',error.response?.data?.message || error.response?.data || error.message);
+
     }
   }
 

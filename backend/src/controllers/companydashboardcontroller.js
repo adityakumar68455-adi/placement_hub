@@ -116,7 +116,7 @@ exports.getCompanyApplicants = async (req, res) => {
         const applications = await Application.find({
             job: { $in: jobIds }
         })
-        .populate("student", "name email")
+        .populate("student", "fullName phone cgpa resumeUrl")
         .populate("job", "title")
         .sort({ createdAt: -1 });
 
@@ -146,7 +146,7 @@ exports.updateApplicationStatus = async (req, res) => {
         const validStatus = [
             "applied",
             "shortlisted",
-            "interviewing",
+            "interviews",
             "selected",
             "rejected"
         ];

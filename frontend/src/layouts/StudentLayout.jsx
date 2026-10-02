@@ -2,6 +2,10 @@ import React from 'react'
 import { Outlet , Link } from 'react-router-dom'
 
 function StudentLayout() {
+  const handleLogout=()=>{
+    localStorage.removeItem('token')
+    localStorage.removeItem('role')
+  }
   return (
     <>
   
@@ -16,14 +20,26 @@ function StudentLayout() {
 
   <div className="flex items-center gap-6">
     <Link
-      to="/profile"
+      to="/student/profile"
       className="text-gray-600 hover:text-blue-600"
     >
       Profile
     </Link>
+    <Link
+      to="/student/getJob"
+      className="text-gray-600 hover:text-blue-600"
+    >
+      Jobs
+    </Link>
+    <Link
+      to="/student/applications"
+      className="text-gray-600 hover:text-blue-600"
+    >
+      Applications
+    </Link>
 
     <Link
-      to="/"
+      to="/" onClick={handleLogout}
       className="text-gray-600 hover:text-red-600"
     >
       Logout
@@ -35,6 +51,7 @@ function StudentLayout() {
 
     <div>
       <Outlet/>
+      
     </div>
     </>
   )

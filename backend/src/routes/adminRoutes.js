@@ -9,7 +9,8 @@ const { getAdminDashboardAnalytics,
         getAllJobs , 
         closeJobByAdmin , 
         getAllApplications , 
-        getPlacedStudents 
+        getPlacedStudents ,
+        
         } = require("../controllers/adminController.js")
 const {protect, authorizeRoles} = require("../middlewares/authMiddleware.js")
 

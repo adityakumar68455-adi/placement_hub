@@ -111,7 +111,7 @@ exports.verifyCompanyLifecycle = async (req, res) => {
         const { id } = req.params;
         const { status, reason } = req.body; // status can be "verified" or "rejected"
 
-        if (!["verified", "rejected"].includes(status)) {
+        if (!["verified","pending", "rejected"].includes(status)) {
             return res.status(400).json({ success: false, message: "Invalid modification status requested." });
         }
 
@@ -214,13 +214,22 @@ exports.getAllJobs = async (req, res) => {
 exports.closeJobByAdmin = async (req, res) => {
     try {
         const job = await Job.findById(req.params.id);
+        
+        const {status} = req.body;
 
         if (!job) {
             return res.status(404).json({ success: false, message: "Job not found" });
         }
-
-        job.status = "closed";
-        await job.save();
+         if(status === 'active'){
+            job.status = "closed"
+             await job.save();
+        }
+        else if(status === "closed"){
+            job.status = "active"
+            await job.save();
+        }
+        // job.status = "closed";
+       
 
         res.status(200).json({
             success: true,
@@ -231,6 +240,7 @@ exports.closeJobByAdmin = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 };
+
 
 exports.getAllApplications = async (req, res) => {
     try {

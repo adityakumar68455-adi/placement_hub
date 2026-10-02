@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import api from '../../api/axios';
+import { useNavigate } from 'react-router-dom';
 
 
 function StudentForm() {
@@ -13,6 +15,7 @@ function StudentForm() {
     experience :'',
     resumeUrl:''
   });
+  const navigate = useNavigate();
   const handleChange=(e)=>{
     const {name , value} = e.target;
     StudentForm((prevData)=>({
@@ -33,16 +36,13 @@ function StudentForm() {
         Authorization : `Bearer ${token}`
       }
     });
+    navigate("/student")
     console.log("Form submitted ",response.data)
     
    } catch (error) {
     console.error("failed",error.response?.data?.message || error.response?.data || error.message)
    }
   }
-
-
-
-
 
 
   return (

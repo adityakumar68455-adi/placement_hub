@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import api from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function Register() {
   const [form , setForm ] = useState({
@@ -24,14 +25,21 @@ function Register() {
         const payLoad = {email , password , role}
         const response = await api.post('/auth/register' , payLoad) ;
         console.log("Registration successfully", response.data);
-         if(response.data.success === true){
-    navigate('/login')
+         if(response.data.success === true || response.status === 200 || response.status === 201){
+          toast.success("Register Successful")
+           navigate('/login')
+  }else{
+    toast.error('Failed register')
   }
       } catch (error) {
-        console.error("Registration failed" ,  error.response?.data?.message || error.response?.data || error.message )
-      }
+      const errorMessage =
+        error.response?.data?.message ||
+        error.response?.data ||
+        error.message ||
+        'Registration failed';
+      toast.error(errorMessage);
   } ;
- 
+}
 
 
 

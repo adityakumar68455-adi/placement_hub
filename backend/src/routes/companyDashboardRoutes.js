@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
+
 const {
     getCompanyDashboard,
     getCompanyJobs,
     getCompanyApplicants,
     updateApplicationStatus
-} = require("../controllers/companydashboardcontroller");
+} = require("../controllers/companydashboardcontroller.js");
 
 const { protect, authorizeRoles } = require("../middlewares/authMiddleware");
 
