@@ -1,5 +1,7 @@
-const express = require("express")
 const dotenv = require("dotenv")
+dotenv.config()
+
+const express = require("express")
 const cors = require("cors")
 const connectDb = require("./config/db.js")
 
@@ -19,12 +21,11 @@ const getStudentDashboard = require("./routes/studentDashboardRoutes.js")
 // creating app instance
 const app = express()
 
-// configuration of dotenv
-dotenv.config()
-
-// using cors
-app.use(cors())
-app.use(cors({ origin: process.env.FRONTEND_DEPLOYED_URL }));
+// using cors — origin loaded from env (dotenv already configured at top)
+app.use(cors({
+  origin: process.env.FRONTEND_DEPLOYED_URL,
+  credentials: true,
+}));
 
 app.use(express.json());
 

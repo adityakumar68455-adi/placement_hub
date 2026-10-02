@@ -35,18 +35,12 @@ const handleSubmit = async(e) =>{
                         
                 })
                     console.log("form submitted successfully",response.data);
-                     if(response.success || response){
-                      alert('Profile created successfuly')
-                     } else {
-                      alert("some thing wrong")
-                     }
-                     if(response.data.success===true && response.data.verificationStatus === 'pending'){
+                    if(response.data.success === true){
+                      // New company profiles always start as "pending" — go to wait page
                       navigate('/wait')
-                     } 
-                     else{
-                      alert('Comapny form failed')
-                     }
-
+                    } else {
+                      alert('Company profile creation failed. Please try again.')
+                    }
 
                 } catch (error) {
                   alert(error.response?.data?.message || error.response?.data || error.message)

@@ -15,25 +15,25 @@ exports.getStudentDashboard = async (req,res) => {
             })
         }
 
+        // Use findStudent._id (Student profile ID) — NOT userId (User ID)
+        // Applications reference the Student document _id, not User _id
+        const studentId = findStudent._id;
+
         const totalApplications = await application.countDocuments({
-            student:userId 
+            student: studentId 
         })
         const interviews = await application.countDocuments({
-            student: userId,
+            student: studentId,
             status: "interviews"
          })
 
          const selected = await application.countDocuments({
-            student:userId,
+            student: studentId,
             status:"selected"
         })
 
-        //  const alreadyApplied = await application.findOne({
-        //         user: userId,
-        //         job:job.id
-        //     })
          const rejected = await application.countDocuments({    
-            student:userId,
+            student: studentId,
             status:"rejected"
          })
        

@@ -38,7 +38,7 @@ exports.getCompanyDashboard = async (req, res) => {
 
         const interviewing = await Application.countDocuments({
             job: { $in: jobIds },
-            status: "interviewing"
+            status: "interviews"
         });
 
         const selected = await Application.countDocuments({
