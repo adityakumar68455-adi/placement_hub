@@ -43,7 +43,7 @@ app.use("/api/studentDashboard", getStudentDashboard);
 
 app.get("/", (req, res)=>{
     res.json({
-        "message": "HEy connected successfully"
+        "message": "Hello from backend"
     })
 })
 
