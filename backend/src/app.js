@@ -24,6 +24,8 @@ dotenv.config()
 
 // using cors
 app.use(cors())
+app.use(cors({ origin: process.env.FRONTEND_DEPLOYED_URL }));
+
 app.use(express.json());
 
 // connecting database 
