@@ -24,6 +24,7 @@ const app = express()
 // using cors — origin loaded from env (dotenv already configured at top)
 const allowedOrigins = [
   process.env.FRONTEND_DEPLOYED_URL,
+  "https://placement-hub-6f9i.vercel.app",  // hardcoded fallback — production frontend
   "http://localhost:5173",
   "http://localhost:3000",
 ].filter(Boolean);
@@ -38,7 +39,12 @@ app.use(cors({
     return callback(new Error("Not allowed by CORS"));
   },
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
+
+// Explicitly handle preflight for all routes
+app.options("*", cors());
 
 app.use(express.json());
 
