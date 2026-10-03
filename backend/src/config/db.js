@@ -10,7 +10,8 @@ const connectDB = async () => {
         await seedAdmin();
     } catch (error) {
         console.log("DB Error:", error.message);
-        process.exit(1);
+        // Do not use process.exit(1) in serverless environments like Vercel
+        // as it crashes the entire function and causes a 500 error.
     }
 };
 
