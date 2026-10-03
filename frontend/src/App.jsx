@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css'; // Don't forget this!
 
 // React Router
 import { Route, Routes } from "react-router-dom";
-import ProtectedRoute from "../../ProtectedRoutes.jsx";
+import ProtectedRoute from "./ProtectedRoute.jsx";
 // All layouts
 import PublicLayout from "./layouts/PublicLayout.jsx";
 import AdminLayout from "./layouts/AdminLayout.jsx";
